@@ -678,6 +678,31 @@ class PaySimulatorEngine {
       }
     }
 
+    const noteInput = document.getElementById('sim-note-input');
+    const note = noteInput && noteInput.value ? noteInput.value.trim() : '';
+
+    const confirmNoteRow = document.getElementById('confirm-note-display');
+    const confirmNoteText = document.getElementById('confirm-note-text');
+    if (confirmNoteRow && confirmNoteText) {
+      if (note) {
+        confirmNoteText.textContent = note;
+        confirmNoteRow.style.display = 'block';
+      } else {
+        confirmNoteRow.style.display = 'none';
+      }
+    }
+
+    const successNoteRow = document.getElementById('success-note-display');
+    const successNoteText = document.getElementById('success-note-text');
+    if (successNoteRow && successNoteText) {
+      if (note) {
+        successNoteText.textContent = note;
+        successNoteRow.style.display = 'block';
+      } else {
+        successNoteRow.style.display = 'none';
+      }
+    }
+
     const amountInput = document.getElementById('sim-amount-input');
     if (amountInput) amountInput.value = this.amount;
   }

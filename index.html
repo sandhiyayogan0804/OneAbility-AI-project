@@ -1365,6 +1365,11 @@
               ₹500
             </div>
           </div>
+          
+          <!-- Optional Note Display -->
+          <div class="confirm-note-row" id="confirm-note-display" style="display: none; background: var(--bg-surface-elevated); padding: 12px; border-radius: 8px; margin-bottom: 16px; font-style: italic; color: var(--text-secondary); text-align: center; border: 1px dashed var(--border-subtle);">
+            Note: <span id="confirm-note-text"></span>
+          </div>
 
           <!-- Debited Account Row -->
           <div class="confirm-account-row">
@@ -1488,6 +1493,7 @@
           <h2 class="success-title">Payment Successful!</h2>
           <div class="success-amount-highlight" id="success-amount-display">₹500</div>
           <p class="success-recipient-name" id="success-recipient-name">Paid to Kumar Groceries</p>
+          <p id="success-note-display" style="display: none; font-style: italic; color: var(--text-secondary); margin-top: 4px; font-size: 0.95rem;">Note: <span id="success-note-text"></span></p>
           <div class="success-ref-pill" id="success-txid-display">UPI Ref: MOCK_948201849204</div>
 
           <!-- Spoken Receipt Button for Blind Users -->
