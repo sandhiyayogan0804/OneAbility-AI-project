@@ -6,9 +6,9 @@
 
 class GeminiAssistantClient {
   constructor() {
-    // Primary backend port 8001, with fallback to 8000
-    this.primaryBaseUrl = 'http://127.0.0.1:8001';
-    this.secondaryBaseUrl = 'http://127.0.0.1:8000';
+    // Primary backend port 8000, with fallback to 8001
+    this.primaryBaseUrl = 'http://127.0.0.1:8000';
+    this.secondaryBaseUrl = 'http://127.0.0.1:8001';
     this.activeBaseUrl = this.primaryBaseUrl;
   }
 

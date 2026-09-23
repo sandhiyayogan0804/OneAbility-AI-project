@@ -410,7 +410,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (actionBills) {
     actionBills.addEventListener('click', () => {
       window.AcousticHaptic.playClick();
-      window.PaySimulator.scrollToBillsSection();
+      window.PaySimulator.openBillsView();
     });
   }
 
@@ -432,8 +432,19 @@ document.addEventListener('DOMContentLoaded', () => {
   const actionUpi = document.getElementById('action-pay-upi');
   if (actionUpi) {
     actionUpi.addEventListener('click', () => {
-      window.PaySimulator.selectMerchant('Kumar Groceries', 'kumar.store@okhdfcbank', '500');
+      window.AcousticHaptic.playClick();
+      window.PaySimulator.openPayUpiView();
     });
+  }
+
+  const upiBack = document.getElementById('upi-back-btn');
+  if (upiBack) {
+    upiBack.addEventListener('click', () => window.PaySimulator.goHome());
+  }
+
+  const billsBack = document.getElementById('bills-back-btn');
+  if (billsBack) {
+    billsBack.addEventListener('click', () => window.PaySimulator.goHome());
   }
 
   const actionVoice = document.getElementById('action-voice-pay');

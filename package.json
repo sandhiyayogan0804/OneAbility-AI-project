@@ -1,0 +1,21 @@
+{
+  "name": "oneability-ai",
+  "version": "1.2.0",
+  "description": "Universal Accessibility Platform for Voice-Driven Digital Payments",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "backend": "cd backend && .venv\\Scripts\\python.exe -m uvicorn main:app --reload --port 8000"
+  },
+  "keywords": [
+    "accessibility",
+    "voice-payment",
+    "dex",
+    "tamil",
+    "english",
+    "assistive-tech"
+  ],
+  "author": "OneAbility AI Team",
+  "license": "ISC"
+}

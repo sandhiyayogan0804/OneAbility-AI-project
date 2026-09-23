@@ -1250,6 +1250,87 @@
       </section>
 
       <!-- ====================================================================
+           VIEW: PAY BY UPI ID
+           ==================================================================== -->
+      <section class="app-view" id="view-pay-upi" role="region" aria-label="Pay by UPI ID">
+        <header class="view-header" style="display: flex; align-items: center; padding: 16px 20px; border-bottom: 1px solid var(--border-subtle);">
+          <button class="back-btn" id="upi-back-btn" aria-label="Go back to Home" style="background: none; border: none; font-size: 1.5rem; color: var(--text-primary); margin-right: 16px; cursor: pointer;">←</button>
+          <h2 class="view-title" style="margin: 0; font-size: 1.25rem; color: var(--text-primary);">Pay by UPI ID</h2>
+        </header>
+        <div class="view-content" style="padding: 24px;">
+          <form id="form-pay-upi" onsubmit="event.preventDefault(); window.PaySimulator.submitUpiId();">
+            <div class="form-group" style="margin-bottom: 24px;">
+              <label for="input-upi-id" class="form-label" style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--text-primary);">Enter UPI ID</label>
+              <input type="text" id="input-upi-id" class="form-input" placeholder="e.g. name@bank" required autocomplete="off" style="width: 100%; padding: 16px; font-size: 1.1rem; border-radius: 12px; background: var(--bg-surface-elevated); border: 2px solid var(--border-subtle); color: var(--text-primary);">
+              <span id="upi-error-msg" style="display: none; color: var(--danger); font-size: 0.95rem; margin-top: 8px; font-weight: 500;" role="alert">Invalid UPI ID format. Please use format like name@bank.</span>
+            </div>
+            <button type="submit" class="btn-primary-large" id="btn-submit-upi" style="width: 100%;" aria-label="Continue to enter amount">
+              Continue →
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           VIEW: BILLS & RECHARGE
+           ==================================================================== -->
+      <section class="app-view" id="view-bills" role="region" aria-label="Bills and Recharge">
+        <header class="view-header" style="display: flex; align-items: center; padding: 16px 20px; border-bottom: 1px solid var(--border-subtle);">
+          <button class="back-btn" id="bills-back-btn" aria-label="Go back to Home" style="background: none; border: none; font-size: 1.5rem; color: var(--text-primary); margin-right: 16px; cursor: pointer;">←</button>
+          <h2 class="view-title" style="margin: 0; font-size: 1.25rem; color: var(--text-primary);">Bills & Recharge</h2>
+        </header>
+        <div class="view-content" style="padding: 24px; overflow-y: auto;">
+          <h3 style="margin-bottom: 16px; color: var(--text-primary); font-size: 1.1rem;">Categories</h3>
+          <div class="bills-categories-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <button type="button" class="bill-category-btn" onclick="window.PaySimulator.selectBillCategory('Mobile Recharge')" style="padding: 20px; background: var(--bg-surface-elevated); border: 2px solid var(--border-subtle); border-radius: 16px; text-align: center; cursor: pointer; color: var(--text-primary); transition: transform 0.2s;">
+              <div style="font-size: 2.2rem; margin-bottom: 8px;" aria-hidden="true">📱</div>
+              <div style="font-weight: 600;">Mobile</div>
+            </button>
+            <button type="button" class="bill-category-btn" onclick="window.PaySimulator.selectBillCategory('Electricity')" style="padding: 20px; background: var(--bg-surface-elevated); border: 2px solid var(--border-subtle); border-radius: 16px; text-align: center; cursor: pointer; color: var(--text-primary); transition: transform 0.2s;">
+              <div style="font-size: 2.2rem; margin-bottom: 8px;" aria-hidden="true">💡</div>
+              <div style="font-weight: 600;">Electricity</div>
+            </button>
+            <button type="button" class="bill-category-btn" onclick="window.PaySimulator.selectBillCategory('DTH')" style="padding: 20px; background: var(--bg-surface-elevated); border: 2px solid var(--border-subtle); border-radius: 16px; text-align: center; cursor: pointer; color: var(--text-primary); transition: transform 0.2s;">
+              <div style="font-size: 2.2rem; margin-bottom: 8px;" aria-hidden="true">📺</div>
+              <div style="font-weight: 600;">DTH</div>
+            </button>
+            <button type="button" class="bill-category-btn" onclick="window.PaySimulator.selectBillCategory('Broadband')" style="padding: 20px; background: var(--bg-surface-elevated); border: 2px solid var(--border-subtle); border-radius: 16px; text-align: center; cursor: pointer; color: var(--text-primary); transition: transform 0.2s;">
+              <div style="font-size: 2.2rem; margin-bottom: 8px;" aria-hidden="true">🌐</div>
+              <div style="font-weight: 600;">Internet</div>
+            </button>
+            <button type="button" class="bill-category-btn" onclick="window.PaySimulator.selectBillCategory('Water')" style="padding: 20px; background: var(--bg-surface-elevated); border: 2px solid var(--border-subtle); border-radius: 16px; text-align: center; cursor: pointer; color: var(--text-primary); transition: transform 0.2s;">
+              <div style="font-size: 2.2rem; margin-bottom: 8px;" aria-hidden="true">💧</div>
+              <div style="font-weight: 600;">Water</div>
+            </button>
+            <button type="button" class="bill-category-btn" onclick="window.PaySimulator.selectBillCategory('Gas')" style="padding: 20px; background: var(--bg-surface-elevated); border: 2px solid var(--border-subtle); border-radius: 16px; text-align: center; cursor: pointer; color: var(--text-primary); transition: transform 0.2s;">
+              <div style="font-size: 2.2rem; margin-bottom: 8px;" aria-hidden="true">🔥</div>
+              <div style="font-weight: 600;">Gas</div>
+            </button>
+          </div>
+          
+          <div id="bill-provider-section" style="display: none; margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border-subtle);">
+            <h3 id="bill-category-title" style="margin-bottom: 16px; color: var(--text-primary); font-size: 1.1rem;">Select Provider</h3>
+            <form id="form-pay-bill" onsubmit="event.preventDefault(); window.PaySimulator.submitBillPayment();">
+              <div class="form-group" style="margin-bottom: 20px;">
+                <label for="select-provider" class="form-label" style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--text-secondary);">Provider</label>
+                <select id="select-provider" class="form-input" required style="width: 100%; padding: 14px; font-size: 1.1rem; border-radius: 12px; background: var(--bg-surface-elevated); border: 2px solid var(--border-subtle); color: var(--text-primary);">
+                  <option value="">Choose Provider</option>
+                  <!-- Dynamically populated via JS -->
+                </select>
+              </div>
+              <div class="form-group" style="margin-bottom: 24px;">
+                <label for="input-account-no" class="form-label" style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--text-secondary);">Account / Customer Number</label>
+                <input type="text" id="input-account-no" class="form-input" placeholder="Enter number" required autocomplete="off" style="width: 100%; padding: 14px; font-size: 1.1rem; border-radius: 12px; background: var(--bg-surface-elevated); border: 2px solid var(--border-subtle); color: var(--text-primary);">
+              </div>
+              <button type="submit" class="btn-primary-large" id="btn-submit-bill" style="width: 100%;" aria-label="Proceed to pay bill">
+                Proceed →
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
            VIEW 3: REAL PAYMENT CONFIRMATION SCREEN (With Biometric Auth)
            ==================================================================== -->
       <section class="app-view" id="view-confirm" role="region" aria-label="Payment Confirmation Screen">
@@ -1351,6 +1432,10 @@
             <button class="speech-chip-btn amount-chip" data-amount="500">₹500</button>
             <button class="speech-chip-btn amount-chip" data-amount="1000">₹1,000</button>
             <button class="speech-chip-btn amount-chip" data-amount="15000" title="Triggers scam safety guard">₹15,000 (Test Limit)</button>
+          </div>
+          
+          <div class="form-group" style="margin-bottom: 24px; padding: 0 16px;">
+            <input type="text" id="sim-note-input" class="form-input" placeholder="Add a note (optional)" aria-label="Optional payment note" style="width: 100%; padding: 14px; font-size: 1rem; border-radius: 12px; background: var(--bg-surface-elevated); border: 2px solid var(--border-subtle); color: var(--text-primary); text-align: center;">
           </div>
 
           <div class="confirm-actions-buttons-row">

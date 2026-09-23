@@ -369,7 +369,7 @@ class TTSVoiceEngine {
 
     // 1. Try Backend Speech Synthesis (gTTS / Gemini)
     try {
-      const endpoints = ['http://127.0.0.1:8001', 'http://127.0.0.1:8000', ''];
+      const endpoints = ['http://127.0.0.1:8000', 'http://127.0.0.1:8001', ''];
       let speakSuccess = false;
 
       for (const base of endpoints) {

@@ -1555,6 +1555,114 @@ class PaySimulatorEngine {
     this.switchView('view-home');
   }
 
+  openPayUpiView() {
+    this.switchView('view-pay-upi');
+    const input = document.getElementById('input-upi-id');
+    if (input) {
+      input.value = '';
+      setTimeout(() => input.focus(), 100);
+    }
+    const err = document.getElementById('upi-error-msg');
+    if (err) err.style.display = 'none';
+  }
+
+  submitUpiId() {
+    const input = document.getElementById('input-upi-id');
+    const err = document.getElementById('upi-error-msg');
+    if (!input) return;
+    
+    const upiId = input.value.trim();
+    const upiRegex = /^[a-zA-Z0-9.\-_]{2,}@[a-zA-Z0-9]{2,}$/;
+    
+    if (!upiRegex.test(upiId)) {
+      if (err) err.style.display = 'block';
+      if (window.TTSVoice && window.TTSVoice.speak) {
+        window.TTSVoice.speak({
+          ta: 'தவறான யூபிஐ ஐடி.',
+          tanglish: 'Thappana UPI ID.',
+          en: 'Invalid UPI ID format. Please try again.'
+        });
+      }
+      return;
+    }
+    
+    if (err) err.style.display = 'none';
+    const merchantName = upiId.split('@')[0].toUpperCase();
+    this.selectMerchant(merchantName, upiId, '');
+  }
+
+  openBillsView() {
+    this.switchView('view-bills');
+    const providerSection = document.getElementById('bill-provider-section');
+    if (providerSection) providerSection.style.display = 'none';
+    const form = document.getElementById('form-pay-bill');
+    if (form) form.reset();
+  }
+
+  selectBillCategory(category) {
+    const providerSection = document.getElementById('bill-provider-section');
+    const title = document.getElementById('bill-category-title');
+    const select = document.getElementById('select-provider');
+    
+    if (providerSection && title && select) {
+      title.textContent = `Select Provider for ${category}`;
+      providerSection.style.display = 'block';
+      providerSection.dataset.category = category;
+      
+      select.innerHTML = '<option value="">Choose Provider</option>';
+      let providers = [];
+      
+      switch(category) {
+        case 'Mobile Recharge':
+          providers = ['Jio', 'Airtel', 'Vi', 'BSNL'];
+          break;
+        case 'Electricity':
+          providers = ['TNEB / TANGEDCO'];
+          break;
+        case 'DTH':
+          providers = ['Tata Play', 'Airtel Digital TV', 'Sun Direct', 'Dish TV'];
+          break;
+        case 'Broadband':
+          providers = ['Airtel Xstream', 'JioFiber', 'BSNL'];
+          break;
+        case 'Water':
+          providers = ['Municipal Water Board'];
+          break;
+        case 'Gas':
+          providers = ['LPG / Gas Bill'];
+          break;
+        default:
+          providers = ['Generic Provider'];
+      }
+      
+      providers.forEach(p => {
+        const opt = document.createElement('option');
+        opt.value = p.toLowerCase().replace(/[^a-z0-9]/g, '');
+        opt.textContent = p;
+        select.appendChild(opt);
+      });
+      
+      setTimeout(() => {
+        select.focus();
+      }, 100);
+    }
+  }
+
+  submitBillPayment() {
+    const select = document.getElementById('select-provider');
+    const accountInput = document.getElementById('input-account-no');
+    const providerSection = document.getElementById('bill-provider-section');
+    
+    if (!select || !accountInput || !select.value || !accountInput.value.trim()) return;
+    
+    const providerName = select.options[select.selectedIndex].text;
+    const category = providerSection ? providerSection.dataset.category : 'Bill';
+    const merchantName = `${providerName} - ${category}`;
+    const upiId = `biller.${select.value}@oneability`;
+    
+    this.selectMerchant(merchantName, upiId, '');
+  }
+
   selectMerchant(name, upiId, defaultAmount = '500') {
     this.merchant.name = name;
     this.merchant.upiId = upiId;
